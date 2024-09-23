@@ -28,6 +28,9 @@ public class Candidate {
     private String candidateEmail;
 
     @NotEmpty
+    private String candidatePhone;
+
+    @NotEmpty
     private String candidateAddress;
 
     @ManyToOne
