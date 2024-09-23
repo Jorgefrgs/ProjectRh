@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class OpeningDto {
 
+    private Long openingId;
+
     @NotEmpty(message = "the opening name cannot be empty")
     @Size(max = 100, message = "the opening name must have 100 chatacters max")
     private String openingName;

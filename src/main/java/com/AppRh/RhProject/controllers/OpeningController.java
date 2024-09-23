@@ -2,68 +2,60 @@ package com.AppRh.RhProject.controllers;
 
 import com.AppRh.RhProject.dto.OpeningDto;
 import com.AppRh.RhProject.models.Opening;
-import com.AppRh.RhProject.repositories.CandidateRepository;
 import com.AppRh.RhProject.repositories.OpeningRepository;
 import com.AppRh.RhProject.services.OpeningService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Log4j2
-@RestController
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("/openings")
 public class OpeningController {
 
-    private final OpeningRepository openingRepository;
     private final OpeningService openingService;
-    private final CandidateRepository candidateRepository;
 
-
-    @GetMapping(value = "/openingRegister")
+    @GetMapping("/register")
     public String showForm() {
         return "opening/formOpening";
     }
 
-    @PostMapping(value = "/openingRegister")
+    @PostMapping("/register")
     public String createOpening(@RequestBody @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
-        Opening opening = new Opening();
-        opening.setOpeningName(openingDTO.getOpeningName());
-        opening.setOpeningDescription(openingDTO.getOpeningDescription());
-        opening.setOpeningDate(openingDTO.getOpeningDate());
-        opening.setOpeningSalary(openingDTO.getOpeningSalary());
-
-        openingRepository.save(opening);
-
+        openingService.createOpening(openingDTO);
         redirectAttributes.addFlashAttribute("message", "Opening created successfully!");
-        return "redirect:/openingRegister";
-
+        return "redirect:/openings/register";
     }
 
-    @GetMapping("/openings")
+    @GetMapping
     public ModelAndView listOpenings(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("opening/listOpening");
-        var openings = openingRepository.findAll(pageable);
-        modelAndView.addObject("openings", openings);
+        modelAndView.addObject("openings", openingService.listAll(pageable));
         return modelAndView;
     }
 
-    @GetMapping(value = "/{openingId}")
+    @GetMapping("/{openingId}")
     public ModelAndView openingDetails(@PathVariable Long openingId) {
         ModelAndView modelAndView = new ModelAndView("opening/openingDetails");
-
-        Opening opening = openingService.findByIdThrowBadRequestException(openingId);
-
-        modelAndView.addObject("opening", opening);
-        var candidates = candidateRepository.findByOpening(opening);
-        modelAndView.addObject("candidates", candidates);
-
+        modelAndView.addObject("opening", openingService.findById(openingId));
+        modelAndView.addObject("candidates", openingService.findCandidatesByOpeningId(openingId));
         return modelAndView;
     }
 
+    @DeleteMapping("/{openingId}")
+    public String deleteOpening(@PathVariable Long openingId) {
+        openingService.deleteOpening(openingId);
+        return "redirect:/openings";
+    }
 
+    @PutMapping(value = "/updateOpening")
+    public String updateOpening(@RequestBody @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
+        Opening updatedOpening = openingService.updateOpening(openingDTO);
+        redirectAttributes.addFlashAttribute("message", "Opening updated successfully!");
+        return "redirect:/" + updatedOpening.getOpeningId();
+    }
 
 }
