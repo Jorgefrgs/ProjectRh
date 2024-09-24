@@ -11,7 +11,7 @@
 
 <body>
 
-<header style="background-color: #343a40; color: white; padding: 10px;">
+<header style="background-color: rgba(53,135,100,0.84); color: white; padding: 10px;">
 	<nav>
 		<a href="/" style="color: white; text-decoration: none; padding: 8px 16px;">RhProject</a>
 		<div>
@@ -20,29 +20,33 @@
 			<a class="nav-link" href="/cadastrarFuncionario" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Funcionário</a>
 			<a class="nav-link" href="/openings" style="color: white; text-decoration: none; padding: 8px 16px;">Listar Vagas</a>
 			<a class="nav-link" href="/openings/register" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Vaga</a>
+			<a class="nav-link" href="/openings/updateForm" style="color: white; text-decoration: none; padding: 8px 16px;">Atualizar Vaga</a>
 			<a class="nav-link" href="/logout" style="color: white; text-decoration: none; padding: 8px 16px;">Sair</a>
 		</div>
 	</nav>
 </header>
+
 
 <div style="max-width: 1200px; margin: auto; padding: 20px;">
 	<div style="display: flex; flex-wrap: wrap; margin: 20px 0;">
 		<div style="flex: 1; padding: 10px; min-width: 250px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; border-radius: 5px; background-color: #fff; text-align: center;">
 			<h3>Funcionários</h3>
 			<p>Módulo responsável pelos funcionários da agência de RH.</p>
-			<a href="/funcionarios" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Listar Funcionários</a>
-			<a href="/cadastrarFuncionario" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Cadastrar Funcionário</a>
+			<a href="/funcionarios" style="display: inline-block; margin: 10px 0; background-color: rgba(154,136,85,0.8); color: white; padding: 10px; text-decoration: none;">Listar Funcionários</a>
+			<a href="/cadastrarFuncionario" style="display: inline-block; margin: 10px 0; background-color: rgba(154,136,85,0.8); color: white; padding: 10px; text-decoration: none;">Cadastrar Funcionário</a>
 		</div>
 		<div style="flex: 1; padding: 10px; min-width: 250px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; border-radius: 5px; background-color: #fff; text-align: center;">
 			<h3>Vagas</h3>
 			<p>Módulo responsável pelas vagas ofertadas pela agência de RH.</p>
-			<a href="/openings" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Listar Vagas</a>
-			<a href="/openings/register" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Cadastrar Vaga</a>
+			<a href="/openings" style="display: inline-block; margin: 10px 0; background-color: rgba(154,136,85,0.8); color: white; padding: 10px; text-decoration: none;">Listar Vagas</a>
+			<a href="/openings/register" style="display: inline-block; margin: 10px 0; background-color: rgba(154,136,85,0.8); color: white; padding: 10px; text-decoration: none;">Cadastrar Vaga</a>
+			<a href="/openings/updateForm" style="display: inline-block; margin: 10px 0; background-color: rgba(154,136,85,0.8); color: white; padding: 10px; text-decoration: none;">Atualizar Vaga</a>
 		</div>
+
 	</div>
 
 	<div style="padding: 10px;">
-		<h3>Pesquisar no sistema</h3>
+		<h3>Pesquisar</h3>
 		<form method="post" style="display: flex; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
 			<label for="nome"></label><select name="nome" id="nome" required style="margin: 5px; padding: 10px; flex: 1; min-width: 150px;">
 				<option value="">Escolher...</option>

@@ -30,6 +30,7 @@ public class OpeningService {
     }
 
 
+
     public void createOpening(OpeningDto openingDTO) {
         Opening opening = new Opening();
         opening.setOpeningName(openingDTO.getOpeningName());
@@ -48,16 +49,16 @@ public class OpeningService {
         Opening opening = findById(openingId);
         return candidateRepository.findByOpening(opening);
     }
-    public Opening updateOpening(OpeningDto openingDTO) {
+    public void updateOpening(OpeningDto openingDTO) {
+        Opening opening = findById(openingDTO.getOpeningId());
 
-        Opening existingOpening = openingRepository.findById(openingDTO.getOpeningId())
-                .orElseThrow(() -> new BadRequestException("Opening not found with ID: " + openingDTO.getOpeningId()));
-        existingOpening.setOpeningName(openingDTO.getOpeningName());
-        existingOpening.setOpeningDescription(openingDTO.getOpeningDescription());
-        existingOpening.setOpeningDate(openingDTO.getOpeningDate());
-        existingOpening.setOpeningSalary(openingDTO.getOpeningSalary());
+        opening.setOpeningName(openingDTO.getOpeningName());
+        opening.setOpeningDescription(openingDTO.getOpeningDescription());
+        opening.setOpeningSalary((openingDTO.getOpeningSalary()));
+        opening.setOpeningDate(openingDTO.getOpeningDate());
 
-        return openingRepository.save(existingOpening);
+        openingRepository.save(opening);
     }
+
 
 }

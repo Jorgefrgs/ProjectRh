@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://thymeleaf.org ">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,74 +7,71 @@
     <title>| RhProject |</title>
 </head>
 <body>
-<header>
+<header style="background-color: rgba(53, 135, 100, 0.84); color: white; padding: 10px;">
     <nav>
-        <a href="/">RhProject</a>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/funcionarios">Funcionários</a></li>
-            <li><a href="/cadastrarFuncionario">Cadastrar Funcionário</a></li>
-            <li><a href="/openings">Listar Vagas</a></li>
-            <li><a href="/openings/register">Cadastrar Vaga</a></li>
-            <li><a href="/logout">Sair</a></li>
-        </ul>
+        <a href="/" style="color: white; text-decoration: none; padding: 8px 16px;">RhProject</a>
+        <div>
+            <a class="nav-link active" aria-current="page" href="/" style="color: white; text-decoration: none; padding: 8px 16px;">Home</a>
+            <a class="nav-link" href="/funcionarios" style="color: white; text-decoration: none; padding: 8px 16px;">Funcionários</a>
+            <a class="nav-link" href="/cadastrarFuncionario" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Funcionário</a>
+            <a class="nav-link" href="/openings" style="color: white; text-decoration: none; padding: 8px 16px;">Listar Vagas</a>
+            <a class="nav-link" href="/openings/register" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Vaga</a>
+            <a class="nav-link" href="/logout" style="color: white; text-decoration: none; padding: 8px 16px;">Sair</a>
+        </div>
     </nav>
 </header>
 
-<div class="container">
+<div style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #f9f9f9;">
     <h1>Lista de Vagas</h1>
 
-    <th:block th:include="mensagem-validacao"></th:block>
+    <div th:if="${message}" style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; margin-bottom: 20px;">
+        <p th:text="${message}"></p>
+    </div>
+    <div th:if="${errorMessage}" style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; margin-bottom: 20px;">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
-    <table>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Nome do Cargo</th>
-            <th>Descrição</th>
-            <th>Data de Expiração</th>
-            <th>Salário</th>
+            <th style="border: 1px solid #ccc; padding: 10px; background-color: rgba(53, 135, 100, 0.84); color: white;">ID</th>
+            <th style="border: 1px solid #ccc; padding: 10px; background-color: rgba(53, 135, 100, 0.84); color: white;">Nome do Cargo</th>
+            <th style="border: 1px solid #ccc; padding: 10px; background-color: rgba(53, 135, 100, 0.84); color: white;">Descrição</th>
+            <th style="border: 1px solid #ccc; padding: 10px; background-color: rgba(53, 135, 100, 0.84); color: white;">Data de Expiração</th>
+            <th style="border: 1px solid #ccc; padding: 10px; background-color: rgba(53, 135, 100, 0.84); color: white;">Salário</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="opening : ${openings.content}">
-            <td th:text="${opening.openingId}"></td>
-            <td th:text="${opening.openingName}"></td>
-            <td th:text="${opening.openingDescription}"></td>
-            <td th:text="${opening.openingDate}"></td>
-            <td th:text="${opening.openingSalary}"></td>
+            <td style="border: 1px solid #ccc; padding: 10px;" th:text="${opening.openingId}"></td>
+            <td style="border: 1px solid #ccc; padding: 10px;" th:text="${opening.openingName}"></td>
+            <td style="border: 1px solid #ccc; padding: 10px;" th:text="${opening.openingDescription}"></td>
+            <td style="border: 1px solid #ccc; padding: 10px;" th:text="${opening.openingDate}"></td>
+            <td style="border: 1px solid #ccc; padding: 10px;" th:text="${opening.openingSalary}"></td>
         </tr>
         </tbody>
     </table>
 
-    <div class="pagination">
-        <div>
-            <!-- Botão de Página Anterior -->
-            <span th:if="${openings.hasPrevious()}">
-            <a th:href="@{/openings(page=${openings.number - 1})}">« Página Anterior</a>
+    <div style="margin: 20px 0;">
+        <span th:if="${openings.hasPrevious()}">
+            <a th:href="@{/openings(page=${openings.number - 1})}" style="color: #007bff; text-decoration: none; padding: 5px 10px;">« Página Anterior</a>
         </span>
-            <span th:if="${!openings.hasPrevious()}">
-            <span>« Página Anterior</span>
+        <span th:if="${!openings.hasPrevious()}">
+            <span style="padding: 5px 10px;">« Página Anterior</span>
         </span>
-        </div>
 
-        <div>
-            <!-- Lista de Páginas -->
-            <span th:each="i : ${#numbers.sequence(0, openings.totalPages - 1)}">
-            <a th:href="@{/openings(page=${i})}" th:classappend="${openings.number == i} ? 'active'">[[${i + 1}]]</a>
+        <span th:each="i : ${#numbers.sequence(0, openings.totalPages - 1)}">
+            <a th:href="@{/openings(page=${i})}" style="color: #007bff; text-decoration: none; padding: 5px 10px;">[[${i + 1}]]</a>
         </span>
-        </div>
 
-        <div>
-            <!-- Botão Próximo -->
-            <span th:if="${openings.hasNext()}">
-            <a th:href="@{/openings(page=${openings.number + 1})}">Próximo »</a>
+        <span th:if="${openings.hasNext()}">
+            <a th:href="@{/openings(page=${openings.number + 1})}" style="color: #007bff; text-decoration: none; padding: 5px 10px;">Próximo »</a>
         </span>
-            <span th:if="${!openings.hasNext()}">
-            <span>Próximo »</span>
+        <span th:if="${!openings.hasNext()}">
+            <span style="padding: 5px 10px;">Próximo »</span>
         </span>
-        </div>
     </div>
-    </div>
+</div>
+
 </body>
 </html>

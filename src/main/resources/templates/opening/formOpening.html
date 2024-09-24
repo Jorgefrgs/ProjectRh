@@ -1,61 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://thymeleaf.org">
-
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>| RhProject |</title>
 </head>
-
 <body>
-<header>
+<header style="background-color: rgba(53, 135, 100, 0.84); color: white; padding: 10px;">
     <nav>
-        <a href="/">RhProject</a>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/funcionarios">Funcionários</a></li>
-            <li><a href="/cadastrarFuncionario">Cadastrar Funcionário</a></li>
-            <li><a href="/openings">Listar Vagas</a></li>
-            <li><a href="/openings/register">Cadastrar Vaga</a></li>
-            <li><a href="/logout">Sair</a></li>
-        </ul>
+        <a href="/" style="color: white; text-decoration: none; padding: 8px 16px;">RhProject</a>
+        <div>
+            <a class="nav-link active" aria-current="page" href="/" style="color: white; text-decoration: none; padding: 8px 16px;">Home</a>
+            <a class="nav-link" href="/funcionarios" style="color: white; text-decoration: none; padding: 8px 16px;">Funcionários</a>
+            <a class="nav-link" href="/openings" style="color: white; text-decoration: none; padding: 8px 16px;">Listar Vagas</a>
+            <a class="nav-link" href="/openings/register" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Vaga</a>
+            <a class="nav-link" href="/logout" style="color: white; text-decoration: none; padding: 8px 16px;">Sair</a>
+        </div>
     </nav>
 </header>
 
-<div class="container">
+<div style="border: 1px solid #ccc; padding: 20px; margin: 20px;">
     <h1>Cadastrar Vaga</h1>
     <br>
 
-    <div th:if="${message}" style="color:green;" th:text="${message}"></div>
-    <div th:if="${errorMessage}" style="color:red;" th:text="${errorMessage}"></div>
+    <div th:if="${message}" style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; margin-bottom: 20px;">
+        <p th:text="${message}"></p>
+    </div>
+    <div th:if="${errorMessage}" style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; margin-bottom: 20px;">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
-    <form method="post" th:action="@{/openings/create}">
-        <div>
+    <form method="post" th:action="@{/openings/create}" style="background-color: #f9f9f9; padding: 20px; border-radius: 5px;">
+        <div style="margin-bottom: 15px;">
             <label for="openingName"><b>Nome da Vaga:</b></label>
-            <input type="text" id="openingName" name="openingName" placeholder="Nome da vaga" required maxlength="100">
+            <input type="text" id="openingName" name="openingName" placeholder="Nome da vaga" required maxlength="100" style="width: 100%; padding: 10px; margin-top: 5px;">
         </div>
 
-        <div>
+        <div style="margin-bottom: 15px;">
             <label for="openingDescription"><b>Descrição:</b></label>
-            <textarea id="openingDescription" name="openingDescription" placeholder="Descrição da vaga" required maxlength="255"></textarea>
+            <textarea id="openingDescription" name="openingDescription" placeholder="Descrição da vaga" required maxlength="255" style="width: 100%; padding: 10px; margin-top: 5px;"></textarea>
         </div>
 
-        <div>
+        <div style="margin-bottom: 15px;">
             <label for="openingDate"><b>Data da Vaga:</b></label>
-            <input type="date" id="openingDate" name="openingDate" placeholder="Data da vaga" required>
+            <input type="date" id="openingDate" name="openingDate" required style="width: 100%; padding: 10px; margin-top: 5px;">
         </div>
 
-        <div>
+        <div style="margin-bottom: 15px;">
             <label for="openingSalary"><b>Salário:</b></label>
-            <input type="number" id="openingSalary" name="openingSalary" placeholder="Salário" required>
+            <input type="number" id="openingSalary" name="openingSalary" placeholder="Salário" required style="width: 100%; padding: 10px; margin-top: 5px;">
         </div>
 
-        <button type="submit">Cadastrar Vaga</button>
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Cadastrar Vaga
+        </button>
     </form>
 
-    <a href="/openings">Voltar para a lista de Vagas</a>
+    <div style="margin-top: 20px;">
+        <a href="/openings" style="color: #007bff; text-decoration: none;">Voltar para a lista de Vagas</a>
+    </div>
 </div>
 
 </body>
