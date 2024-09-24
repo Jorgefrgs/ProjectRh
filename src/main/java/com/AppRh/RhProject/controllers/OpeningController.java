@@ -1,34 +1,34 @@
 package com.AppRh.RhProject.controllers;
 
 import com.AppRh.RhProject.dto.OpeningDto;
-import com.AppRh.RhProject.models.Opening;
-import com.AppRh.RhProject.repositories.OpeningRepository;
 import com.AppRh.RhProject.services.OpeningService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/openings")
+@Controller
+@RequestMapping(value = "/openings")
 public class OpeningController {
 
     private final OpeningService openingService;
 
     @GetMapping("/register")
-    public String showForm() {
-        return "opening/formOpening";
+    public ModelAndView showForm() {
+        return new ModelAndView("opening/formOpening");
     }
 
-    @PostMapping("/register")
-    public String createOpening(@RequestBody @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
+    @PostMapping("/create")
+    public ModelAndView createOpening(@ModelAttribute @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
         openingService.createOpening(openingDTO);
         redirectAttributes.addFlashAttribute("message", "Opening created successfully!");
-        return "redirect:/openings/register";
+        return new ModelAndView("opening/formOpening");
     }
+
 
     @GetMapping
     public ModelAndView listOpenings(Pageable pageable) {
@@ -36,6 +36,7 @@ public class OpeningController {
         modelAndView.addObject("openings", openingService.listAll(pageable));
         return modelAndView;
     }
+
 
     @GetMapping("/{openingId}")
     public ModelAndView openingDetails(@PathVariable Long openingId) {
@@ -46,16 +47,23 @@ public class OpeningController {
     }
 
     @DeleteMapping("/{openingId}")
-    public String deleteOpening(@PathVariable Long openingId) {
+    public ModelAndView deleteOpening(@PathVariable Long openingId, RedirectAttributes redirectAttributes) {
         openingService.deleteOpening(openingId);
-        return "redirect:/openings";
+        redirectAttributes.addFlashAttribute("message", "Opening deleted successfully!");
+        return new ModelAndView("redirect:/openings");
     }
 
-    @PutMapping(value = "/updateOpening")
-    public String updateOpening(@RequestBody @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
-        Opening updatedOpening = openingService.updateOpening(openingDTO);
+    @GetMapping("/update/{openingId}") // Método para mostrar o formulário de edição
+    public ModelAndView showUpdateForm(@PathVariable Long openingId) {
+        ModelAndView modelAndView = new ModelAndView("opening/updateOpening");
+        modelAndView.addObject("opening", openingService.findById(openingId));
+        return modelAndView;
+    }
+
+    @PutMapping("/update")
+    public ModelAndView updateOpening(@ModelAttribute @Valid OpeningDto openingDTO, RedirectAttributes redirectAttributes) {
+        openingService.updateOpening(openingDTO);
         redirectAttributes.addFlashAttribute("message", "Opening updated successfully!");
-        return "redirect:/" + updatedOpening.getOpeningId();
+        return new ModelAndView("redirect:/openings");
     }
-
 }

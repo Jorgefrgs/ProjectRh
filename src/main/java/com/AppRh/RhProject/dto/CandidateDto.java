@@ -20,11 +20,4 @@ public class CandidateDto {
     @Size(max = 100, message = "the candidate email must have 100 characters max")
     private String candidateEmail;
 
-    @NotEmpty
-    @Size(max = 15, message = "the candidate phone must have 15 characters max")
-    private String candidatePhone;
-
-    @NotEmpty
-    @Size(max = 100, message = "the candidate address must have 100 characters max")
-    private String candidateAddress;
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>|RhProject|</title>
+</head>
+
+<body>
+
+<header style="background-color: #343a40; color: white; padding: 10px;">
+	<nav>
+		<a href="/" style="color: white; text-decoration: none; padding: 8px 16px;">RhProject</a>
+		<div>
+			<a class="nav-link active" aria-current="page" href="/" style="color: white; text-decoration: none; padding: 8px 16px;">Home</a>
+			<a class="nav-link" href="/funcionarios" style="color: white; text-decoration: none; padding: 8px 16px;">Funcionários</a>
+			<a class="nav-link" href="/cadastrarFuncionario" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Funcionário</a>
+			<a class="nav-link" href="/openings" style="color: white; text-decoration: none; padding: 8px 16px;">Listar Vagas</a>
+			<a class="nav-link" href="/openings/register" style="color: white; text-decoration: none; padding: 8px 16px;">Cadastrar Vaga</a>
+			<a class="nav-link" href="/logout" style="color: white; text-decoration: none; padding: 8px 16px;">Sair</a>
+		</div>
+	</nav>
+</header>
+
+<div style="max-width: 1200px; margin: auto; padding: 20px;">
+	<div style="display: flex; flex-wrap: wrap; margin: 20px 0;">
+		<div style="flex: 1; padding: 10px; min-width: 250px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; border-radius: 5px; background-color: #fff; text-align: center;">
+			<h3>Funcionários</h3>
+			<p>Módulo responsável pelos funcionários da agência de RH.</p>
+			<a href="/funcionarios" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Listar Funcionários</a>
+			<a href="/cadastrarFuncionario" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Cadastrar Funcionário</a>
+		</div>
+		<div style="flex: 1; padding: 10px; min-width: 250px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; border-radius: 5px; background-color: #fff; text-align: center;">
+			<h3>Vagas</h3>
+			<p>Módulo responsável pelas vagas ofertadas pela agência de RH.</p>
+			<a href="/openings" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Listar Vagas</a>
+			<a href="/openings/register" style="display: inline-block; margin: 10px 0; background-color: #007bff; color: white; padding: 10px; text-decoration: none;">Cadastrar Vaga</a>
+		</div>
+	</div>
+
+	<div style="padding: 10px;">
+		<h3>Pesquisar no sistema</h3>
+		<form method="post" style="display: flex; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
+			<label for="nome"></label><select name="nome" id="nome" required style="margin: 5px; padding: 10px; flex: 1; min-width: 150px;">
+				<option value="">Escolher...</option>
+				<option value="todos">Todos</option>
+				<option value="nomefuncionario">Funcionário</option>
+				<option value="nomedependente">Dependente</option>
+				<option value="candidateName">Candidato</option>
+				<option value="openingName">Vaga</option>
+			</select>
+
+			<label for="buscar"></label><input type="search" placeholder="Insira sua pesquisa..." name="buscar" id="buscar" required style="margin: 5px; padding: 10px; flex: 1; min-width: 150px;">
+
+			<button type="submit" style="margin: 5px; padding: 10px;">Pesquisar</button>
+		</form>
+		<h4><i><span th:text="${mensagem}"></span></i></h4>
+
+		<table style="width: 100%; border-collapse: collapse;">
+			<tbody>
+			<tr th:each="funcionario : ${funcionarios}">
+				<td style="border: 1px solid #ddd; padding: 8px;">
+					<a th:href="${(#mvc.url('FC#detalhesFuncionario').arg(0, funcionario.id)).build()}" style="text-decoration: none;">
+						<span th:text="${funcionario.nome}"></span>
+					</a> - em <i>funcionários.</i>
+				</td>
+			</tr>
+			<tr th:each="opening : ${openings}">
+				<td style="border: 1px solid #ddd; padding: 8px;">
+					<a th:href="${(#mvc.url('VC#openingDetails').arg(0, opening.openingId)).build()}" style="text-decoration: none;">
+						<span th:text="${opening.openingName}"></span>
+					</a> - em <i>vagas.</i>
+				</td>
+			</tr>
+			<tr th:each="dependente : ${dependentes}">
+				<td style="border: 1px solid #ddd; padding: 8px;">
+					<span th:text="${dependente.nome}"></span> - <i>em dependentes.</i>
+				</td>
+			</tr>
+			<tr th:each="candidate : ${candidate}">
+				<td style="border: 1px solid #ddd; padding: 8px;">
+					<span th:text="${candidate.candidateName}"></span> - <i>em candidatos.</i>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div style="height: 100px;"></div>
+
+</body>
+</html>

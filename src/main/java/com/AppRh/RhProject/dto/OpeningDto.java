@@ -1,6 +1,7 @@
 package com.AppRh.RhProject.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -21,7 +22,7 @@ public class OpeningDto {
     private String openingDate;
 
     @NotEmpty(message = "the opening salary cannot be empty")
-    private long openingSalary;
+    private String openingSalary;
 
 
 

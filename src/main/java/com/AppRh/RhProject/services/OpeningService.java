@@ -7,6 +7,7 @@ import com.AppRh.RhProject.models.Opening;
 import com.AppRh.RhProject.repositories.CandidateRepository;
 import com.AppRh.RhProject.repositories.OpeningRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class OpeningService {
-
-    private final OpeningRepository openingRepository;
-    private final CandidateRepository candidateRepository;
+     private final OpeningRepository openingRepository;
+     private final CandidateRepository candidateRepository;
 
     public Opening findById(Long openingId) {
         return openingRepository.findById(openingId)
@@ -28,6 +28,7 @@ public class OpeningService {
     public Page<Opening> listAll(Pageable pageable) {
         return openingRepository.findAll(pageable);
     }
+
 
     public void createOpening(OpeningDto openingDTO) {
         Opening opening = new Opening();

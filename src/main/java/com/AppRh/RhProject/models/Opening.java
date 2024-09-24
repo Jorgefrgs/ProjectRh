@@ -2,6 +2,7 @@ package com.AppRh.RhProject.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class Opening {
     private String openingDate;
 
     @NotEmpty
-    private long openingSalary;
+    private String openingSalary;
 
     @OneToMany(mappedBy = "opening", cascade =  CascadeType.REMOVE)
     private List<Candidate> candidates = new ArrayList<>();

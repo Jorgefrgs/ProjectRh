@@ -12,11 +12,11 @@ public class CandidateService {
 
     private final CandidateRepository candidateRepository;
 
+
     public void deleteCandidate(String candidateCPF) {
-        Candidate candidate = candidateRepository.findByCandidateCPF(candidateCPF);
-        if (candidate == null) {
-            throw new BadRequestException("Candidate not found");
-        }
+        Candidate candidate = candidateRepository.findByCandidateCPF(candidateCPF)
+                .orElseThrow(() -> new BadRequestException("Candidate not found"));
+
         candidateRepository.delete(candidate);
     }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atualizar Vaga</title>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">RhProject</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/funcionarios">Funcionários</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/openings">Listar Vagas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/openings/create">Cadastrar Vaga</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Atualizar Vaga</h1>
+
+    <form method="post" th:action="@{/openings/update(id=${opening.openingId})}" th:object="${opening}">
+        <div class="form-group">
+            <label for="openingName"><b>Nome da Vaga:</b></label>
+            <input type="text" id="openingName" th:field="*{openingName}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="openingDescription"><b>Descrição:</b></label>
+            <textarea id="openingDescription" th:field="*{openingDescription}" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="openingSalary"><b>Salário:</b></label>
+            <input type="number" id="openingSalary" th:field="*{openingSalary}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="openingDate"><b>Data de Expiração:</b></label>
+            <input type="date" id="openingDate" th:field="*{openingDate}" class="form-control" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar Vaga</button>
+    </form>
+</div>
+
+</body>
+</html>

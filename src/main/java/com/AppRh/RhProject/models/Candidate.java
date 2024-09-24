@@ -27,12 +27,6 @@ public class Candidate {
     @Column(unique = true)
     private String candidateEmail;
 
-    @NotEmpty
-    private String candidatePhone;
-
-    @NotEmpty
-    private String candidateAddress;
-
     @ManyToOne
     private Opening opening;
 }
